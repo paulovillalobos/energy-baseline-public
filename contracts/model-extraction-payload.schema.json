@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/imperiobaal69-web/energy-baseline/contracts/model-extraction-payload.schema.json",
+  "title": "ModelExtractionPayload",
+  "description": "The semantic claim fields produced by an LLM. This is NOT a candidate — it lacks pipeline-generated identity, document reference, producer metadata, and timestamps. EVIDENCE CONTRACT: the model provides UNTRUSTED exact verbatim quotes (evidence_quotes); it never provides numeric character offsets. The pipeline anchors each quote in raw_text deterministically and derives the trusted source_spans (start/end/text) itself — see the extraction-candidate schema. A model-supplied source_spans field is rejected by additionalProperties.",
+  "type": "object",
+  "required": [
+    "subject",
+    "predicate",
+    "value",
+    "evidence_quotes"
+  ],
+  "properties": {
+    "subject": {
+      "type": "string",
+      "description": "The entity or concept the claim is about. E.g. 'Spanish electricity market', 'RDL 10/2022'.",
+      "minLength": 1
+    },
+    "predicate": {
+      "type": "string",
+      "description": "The relationship or property being asserted. E.g. 'has_average_price', 'was_published_on', 'sets_cap_at'.",
+      "minLength": 1
+    },
+    "value": {
+      "type": ["string", "number", "boolean", "null"],
+      "description": "The asserted value as stated in the document. May be null when the document explicitly states the value is unknown or not applicable."
+    },
+    "value_raw": {
+      "type": ["string", "null"],
+      "description": "The exact text from the document that states the value, before any normalization. Preserves what the document says verbatim.",
+      "minLength": 1
+    },
+    "unit_raw": {
+      "type": ["string", "null"],
+      "description": "The unit as written in the document, before normalization. E.g. 'EUR/MWh', '€/MWh', 'megawatts', 'percent'. Null when the document does not specify a unit.",
+      "minLength": 1
+    },
+    "unit_canonical": {
+      "type": ["string", "null"],
+      "description": "The canonical unit after normalization, if deterministically mappable. Null when no canonical mapping exists or when not applicable.",
+      "enum": ["EUR/MWh", "EUR", "MWh", "GWh", "TWh", "MW", "GW", "MW/h", "GW/h", "percent", "date", "text", "gCO2/kWh", "kgCO2/MWh", "kV", "MWp", "bcm", "MtCO2", "pp", null]
+    },
+    "definition": {
+      "type": ["string", "null"],
+      "description": "Optional clarification of what the subject/predicate/value combination means, especially when the document defines a term."
+    },
+    "geography": {
+      "type": ["string", "null"],
+      "description": "Geographic scope of the claim as stated in the document. E.g. 'Spain', 'Iberian Peninsula', 'EU'. Null when not applicable."
+    },
+    "valid_from": {
+      "type": ["string", "null"],
+      "description": "ISO 8601 date when the claim became valid in the world, as stated in the document. Null when the document does not specify.",
+      "format": "date"
+    },
+    "valid_to": {
+      "type": ["string", "null"],
+      "description": "ISO 8601 date when the claim ceased to be valid, as stated in the document. Null when open-ended or unspecified.",
+      "format": "date"
+    },
+    "evidence_quotes": {
+      "type": "array",
+      "description": "Exact verbatim quotes copied character-for-character from the source document, supporting this claim. At least one quote is required. Each quote must occur EXACTLY ONCE in the document (choose a long enough excerpt to be unique). The pipeline derives character offsets deterministically from these quotes; the model must NEVER supply offsets. Quotes are untrusted until anchored: a quote not found in the document is rejected (quote_not_found); a quote occurring more than once is rejected (ambiguous_quote).",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "confidence": {
+      "type": "number",
+      "description": "Model self-assessed confidence in this extraction, 0.0 to 1.0.",
+      "minimum": 0,
+      "maximum": 1
+    }
+  },
+  "additionalProperties": false
+}
