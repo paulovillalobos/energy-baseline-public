@@ -1,4 +1,4 @@
-# Energy Baseline — evidence validation
+# Energy Baseline: evidence validation
 
 [![Tests](https://github.com/imperiobaal69-web/energy-baseline-public/actions/workflows/test.yml/badge.svg)](https://github.com/imperiobaal69-web/energy-baseline-public/actions/workflows/test.yml)
 
