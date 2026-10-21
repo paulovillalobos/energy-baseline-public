@@ -1,6 +1,6 @@
 # Energy Baseline: evidence validation
 
-[![Tests](https://github.com/imperiobaal69-web/energy-baseline-public/actions/workflows/test.yml/badge.svg)](https://github.com/imperiobaal69-web/energy-baseline-public/actions/workflows/test.yml)
+[![Tests](https://github.com/paulovillalobos/energy-baseline-public/actions/workflows/test.yml/badge.svg)](https://github.com/paulovillalobos/energy-baseline-public/actions/workflows/test.yml)
 
 A runnable extraction of the deterministic validation layer from Energy Baseline. A model supplies a claim and verbatim quotes; code derives source offsets, validates the envelope and computes a semantic fingerprint. Candidates remain candidates until reviewed.
 

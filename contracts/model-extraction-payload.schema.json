@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/imperiobaal69-web/energy-baseline/contracts/model-extraction-payload.schema.json",
+  "$id": "https://github.com/paulovillalobos/energy-baseline/contracts/model-extraction-payload.schema.json",
   "title": "ModelExtractionPayload",
   "description": "The semantic claim fields produced by an LLM. This is NOT a candidate — it lacks pipeline-generated identity, document reference, producer metadata, and timestamps. EVIDENCE CONTRACT: the model provides UNTRUSTED exact verbatim quotes (evidence_quotes); it never provides numeric character offsets. The pipeline anchors each quote in raw_text deterministically and derives the trusted source_spans (start/end/text) itself — see the extraction-candidate schema. A model-supplied source_spans field is rejected by additionalProperties.",
   "type": "object",

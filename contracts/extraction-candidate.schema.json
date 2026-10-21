@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/imperiobaal69-web/energy-baseline/contracts/extraction-candidate.schema.json",
+  "$id": "https://github.com/paulovillalobos/energy-baseline/contracts/extraction-candidate.schema.json",
   "title": "ExtractionCandidate",
   "description": "A complete candidate envelope: the model's semantic payload wrapped with pipeline-generated identity, document reference, producer metadata, and timestamps. Candidates are never facts; they await deterministic validation and human review before any promotion.",
   "type": "object",
